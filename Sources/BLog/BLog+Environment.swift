@@ -12,12 +12,18 @@ public extension BLog {
             log += "    \("UserDefaults".uppercased()) : \(udPath)\n"
         }
         
-        if writeLogToFile, let logFilesPath = BLog.logFilesPath {
-            log += "    LOG FILES : \(logFilesPath)\n"
-        }
+        let bundleID = Bundle.main.bundleIdentifier!
+        let logsUrl = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Logs", isDirectory: true)
+            .appendingPathComponent(bundleID, isDirectory: true)
+        
+        log += "    LOG FILES : \(logsUrl)\n"
+        
+//        if writeLogToFile, let logFilesPath = BLog.logFilesPath {
+//            log += "    LOG FILES : \(logFilesPath)\n"
+//        }
         
         BLog.log(log,
-                 title: "Environment",
-                 separated: true)
+                 title: "Environment")
     }
 }

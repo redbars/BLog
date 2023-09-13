@@ -3,6 +3,7 @@ import Foundation
 
 public extension BLog.Network {
     static func log(_ text: Any?,
+                    level: BLog.Level = .info,
                     file: String? = #file,
                     function: String? = #function,
                     line: Int? = #line) {
@@ -12,6 +13,7 @@ public extension BLog.Network {
             
             BLog.log(text,
                        title: "Network",
+                        level: level,
                        file: file,
                        function: function,
                        line: line)
@@ -139,7 +141,9 @@ public extension BLog.Network {
         result.append("]")
         
         let log = result.filter { !$0.isEmpty }.joined(separator: "\n")
+        
         BLog.Network.log(log,
+                         level: isMock ? .warning : .info,
                          file: file,
                          function: function,
                          line: line)
